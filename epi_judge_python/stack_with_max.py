@@ -3,21 +3,21 @@ from test_framework.test_failure import TestFailure
 
 
 class Stack:
+    def __init__(self):
+        self._elements_with_cached_max = []
+
     def empty(self):
-        # TODO - you fill in here.
-        return True
+        return len(self._elements_with_cached_max) == 0
 
     def max(self):
-        # TODO - you fill in here.
-        return 0
+        return self._elements_with_cached_max[-1][1]
 
     def pop(self):
-        # TODO - you fill in here.
-        return 0
+        return self._elements_with_cached_max.pop()[0]
 
     def push(self, x):
-        # TODO - you fill in here.
-        return
+        new_max = x if self.empty() else max(self.max(), x)
+        self._elements_with_cached_max.append((x, new_max))
 
 
 def stack_tester(ops):
