@@ -8,8 +8,15 @@ NUM_PEGS = 3
 
 
 def compute_tower_hanoi(num_rings):
-    # TODO - you fill in here.
-    return []
+    def compute_steps(num_rings, start, end, use):
+        if num_rings > 0:
+            compute_steps(num_rings - 1, start=start, end=use, use=end)
+            result.append((start, end))
+            compute_steps(num_rings - 1, start=use, end=end, use=start)
+
+    result = []
+    compute_steps(num_rings, start=0, end=1, use=2)
+    return result
 
 
 @enable_executor_hook
