@@ -10,10 +10,32 @@ WHITE, BLACK = range(2)
 
 Coordinate = collections.namedtuple('Coordinate', ('x', 'y'))
 
+neighbors = [Coordinate(-1, 0), Coordinate(1, 0), Coordinate(0, -1), Coordinate(0, 1)]
+
 
 def search_maze(maze, s, e):
-    # TODO - you fill in here.
-    return []
+    def search_path_dfs(curr):
+        if not (0 <= curr.x < len(maze) and 0 <= curr.y < len(maze[curr.x])
+                and maze[curr.x][curr.y] == WHITE):
+            return False
+        path.append(curr)
+        maze[curr.x][curr.y] = BLACK
+        if curr == e:
+            return True
+
+        for n in neighbors:
+            if search_path_dfs(Coordinate(curr.x + n.x, curr.y + n.y)):
+                return True
+
+        del path[-1]
+        return False
+
+    path = []
+
+    if search_path_dfs(s):
+        return path
+    else:
+        return None
 
 
 def path_element_is_feasible(maze, prev, cur):
