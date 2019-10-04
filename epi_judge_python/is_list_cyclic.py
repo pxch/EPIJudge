@@ -6,8 +6,33 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def has_cycle(head):
-    # TODO - you fill in here.
-    return None
+    # Solution from EPI
+    # fast = slow = head
+    # while fast and fast.next and fast.next.next:
+    #     fast = fast.next.next
+    #     slow = slow.next
+    #     if fast is slow:
+    #         while head is not slow:
+    #             head = head.next
+    #             slow = slow.next
+    #         return head
+    # return None
+
+    # Faster solution from LC (using try-except to avoid checking every iteration)
+    try:
+        fast, slow = head.next, head
+        while fast is not slow:
+            fast = fast.next.next
+            slow = slow.next
+    except AttributeError:
+        return None
+
+    slow = slow.next
+    while head is not slow:
+        head = head.next
+        slow = slow.next
+
+    return head
 
 
 @enable_executor_hook
